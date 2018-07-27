@@ -12,7 +12,21 @@ defmodule Cost do
 
     all_probs = cost_nodes |> Enum.map(fn elem -> elem / total_cost end)
 
-    all_probs
+    get_next_path(all_probs, all_nodes)
+  end
+
+  defp get_next_path(all_probs, all_nodes) do
+    Enum.zip(all_nodes, all_probs) |> get_next_path_recursive(:rand.uniform())
+  end
+
+  defp get_next_path_recursive([head | tail], remaining) do
+    {node, weight} = head
+    impact = remaining - weight
+
+    case impact do
+      i when i <= 0 -> node
+      _ -> get_next_path_recursive(tail, impact)
+    end
   end
 
   defp get_likelihood(pheromone, node, alpha, beta, current_node, cost_fn) do
@@ -24,7 +38,7 @@ defmodule Cost do
 end
 
 defmodule C do
-  def cf(_foo, bar) do
-    bar
+  def cf({_x_orig, _y_orig}, {_x, y}) do
+    y
   end
 end
