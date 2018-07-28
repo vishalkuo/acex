@@ -1,9 +1,3 @@
-defmodule C do
-  def cf({_x_orig, _y_orig}, {_x, y}) do
-    y
-  end
-end
-
 defmodule CostTest do
   use ExUnit.Case
 
@@ -30,6 +24,6 @@ defmodule CostTest do
     cost_fn = &C.cf/2
 
     next_path = Cost.calc_next_path(current_node, next_nodes, cost_fn, ppid, cpid)
-    assert {0, 1} == next_path 
+    assert {0, 1} == next_path
   end
 end

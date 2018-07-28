@@ -10,17 +10,18 @@ defmodule Pheromones do
   end
 
   def get_pheromone(pid, pair) do
+    edge = get_edge(pair)
     Agent.get_and_update(pid, fn m ->
-      if Map.has_key?(m, pair) do
-        {Map.get(m, pair), m}
+      if Map.has_key?(m, edge) do
+        {Map.get(m, edge), m}
       else
-        {1, Map.put(m, pair, 1)}
+        {1, Map.put(m, edge, 1)}
       end
     end)
   end
 
   def insert(pid, pair, value) do
-    Agent.update(pid, &Map.put(&1, pair, value))
+    Agent.update(pid, &Map.put(&1, get_edge(pair), value))
   end
 
   defp all_keys(pid) do
@@ -52,5 +53,9 @@ defmodule Pheromones do
 
   def online_delayed(phero_pid, const_pid, pair, l) do
     quantity_model(phero_pid, const_pid, pair, l)
+  end
+
+  defp get_edge(pair) do
+    pair |> Tuple.to_list |> Enum.sort |> List.to_tuple
   end
 end
