@@ -20,10 +20,8 @@ defmodule Cost do
   end
 
   defp get_next_path_recursive([head | tail], remaining) do
-    
     {node, weight} = head
     impact = remaining - weight
-    IO.inspect({node, remaining})
 
     case impact do
       i when i <= 0 -> node

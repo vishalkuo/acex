@@ -23,11 +23,15 @@ defmodule Pheromones do
     Agent.update(pid, &Map.put(&1, pair, value))
   end
 
-  def evaporate(phero_pid, const_pid, all_pairs) do
+  defp all_keys(pid) do
+    Agent.get(pid, &Map.keys(&1))
+  end
+
+  def evaporate(phero_pid, const_pid) do
     rho = Constants.get(const_pid, :rho)
     factor = 1 - rho
 
-    all_pairs
+    all_keys(phero_pid)
     |> Enum.each(fn pair ->
       current_pheromone = get_pheromone(phero_pid, pair)
       insert(phero_pid, pair, current_pheromone * factor)
@@ -43,7 +47,7 @@ defmodule Pheromones do
   def quantity_model(phero_pid, const_pid, pair, cost) do
     q = Constants.get(const_pid, :q)
     pheromone = get_pheromone(phero_pid, pair)
-    insert(const_pid, pair, pheromone + q / cost)
+    insert(phero_pid, pair, pheromone + q / cost)
   end
 
   def online_delayed(phero_pid, const_pid, pair, l) do

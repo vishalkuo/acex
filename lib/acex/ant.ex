@@ -15,7 +15,7 @@ defmodule Ant do
     remaining_nodes = all_nodes |> Enum.filter(fn elem -> elem != next_node end)
     # CAN BE TUNED
     Pheromones.density_model(phero_pid, const_pid, {current, next_node})
-    Pheromones.evaporate(phero_pid, const_pid, all_nodes)
+    Pheromones.evaporate(phero_pid, const_pid)
     {next_node, remaining_nodes}
   end
 end
