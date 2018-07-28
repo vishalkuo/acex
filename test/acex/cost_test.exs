@@ -30,5 +30,6 @@ defmodule CostTest do
     cost_fn = &C.cf/2
 
     next_path = Cost.calc_next_path(current_node, next_nodes, cost_fn, ppid, cpid)
+    IO.inspect(next_path)
   end
 end
