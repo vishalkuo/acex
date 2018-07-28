@@ -11,6 +11,7 @@ defmodule Pheromones do
 
   def get_pheromone(pid, pair) do
     edge = get_edge(pair)
+
     Agent.get_and_update(pid, fn m ->
       if Map.has_key?(m, edge) do
         {Map.get(m, edge), m}
@@ -56,6 +57,6 @@ defmodule Pheromones do
   end
 
   defp get_edge(pair) do
-    pair |> Tuple.to_list |> Enum.sort |> List.to_tuple
+    pair |> Tuple.to_list() |> Enum.sort() |> List.to_tuple()
   end
 end

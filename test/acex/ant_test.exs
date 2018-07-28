@@ -4,7 +4,6 @@ defmodule C do
   end
 end
 
-
 defmodule AntTest do
   use ExUnit.Case
 
@@ -18,7 +17,7 @@ defmodule AntTest do
         0.5,
         5
       )
-    
+
     cost_fn = &C.cf/2
     %{ppid: ppid, cpid: cpid, cost_fn: cost_fn}
   end
@@ -32,5 +31,14 @@ defmodule AntTest do
     assert 6 == Pheromones.get_pheromone(ppid, {{1, 1}, {0, 5}})
     assert 1 == Pheromones.get_pheromone(ppid, {{1, 1}, {1, 2}})
     assert 6 == Pheromones.get_pheromone(ppid, {{1, 2}, {0, 5}})
+  end
+
+  test "traverse multiple", %{ppid: ppid, cpid: cpid, cost_fn: cost_fn} do
+    Ant.traverse_all(2, {0, 0}, [{0, 5}, {1, 1}, {1, 2}], cost_fn, ppid, cpid)
+    assert 11 == Pheromones.get_pheromone(ppid, {{1, 2}, {0, 0}})
+    assert 11 == Pheromones.get_pheromone(ppid, {{1, 1}, {1, 2}})
+    assert 11 == Pheromones.get_pheromone(ppid, {{1, 1}, {0, 5}})
+    assert 1 == Pheromones.get_pheromone(ppid, {{0, 0}, {0, 5}})
+    assert 1 == Pheromones.get_pheromone(ppid, {{1, 2}, {0, 5}})
   end
 end
