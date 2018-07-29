@@ -1,18 +1,18 @@
 defmodule Ant do
   def traverse_all(num_ants, starting_node, all_nodes, cost_fn, phero_pid, const_pid) do
-    Enum.each(1..num_ants, fn _i ->
-      traverse([], starting_node, all_nodes, cost_fn, phero_pid, const_pid)
+    Enum.map(1..num_ants, fn _i ->
+      traverse(0, starting_node, all_nodes, cost_fn, phero_pid, const_pid)
     end)
   end
 
-  def traverse(path, current, all_nodes, cost_fn, phero_pid, const_pid) do
+  def traverse(cost, current, all_nodes, cost_fn, phero_pid, const_pid) do
     case all_nodes do
       a when a == [] ->
-        path
+        cost
 
       a ->
         {next, remaining} = traverse_p(current, a, cost_fn, phero_pid, const_pid)
-        traverse(path ++ [next], next, remaining, cost_fn, phero_pid, const_pid)
+        traverse(cost + cost_fn.(current, next), next, remaining, cost_fn, phero_pid, const_pid)
     end
   end
 

@@ -5,14 +5,18 @@ defmodule Constants do
         alpha \\ 0.5,
         beta \\ 1.2,
         rho \\ 0.4,
-        q \\ 1000
+        q \\ 1000,
+        num_ants \\ 20,
+        iter_count \\ 80
       ) do
     Agent.start_link(fn ->
       %{
         :alpha => alpha,
         :beta => beta,
         :rho => rho,
-        :q => q
+        :q => q,
+        :num_ants => num_ants,
+        :iter_count => iter_count
       }
     end)
   end
