@@ -9,7 +9,9 @@ defmodule PheromoneTest do
         1,
         1,
         0.5,
-        5
+        5,
+        1,
+        1
       )
 
     %{ppid: ppid, cpid: cpid}

@@ -9,7 +9,9 @@ defmodule CostTest do
         1,
         1,
         0.5,
-        1000
+        1000,
+        1,
+        1
       )
 
     %{ppid: ppid, cpid: cpid}

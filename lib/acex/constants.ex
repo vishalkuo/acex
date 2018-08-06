@@ -2,12 +2,12 @@ defmodule Constants do
   use Agent
 
   def start_link(
-        alpha \\ 0.5,
-        beta \\ 1.2,
-        rho \\ 0.4,
-        q \\ 1000,
-        num_ants \\ 20,
-        iter_count \\ 80
+        alpha,
+        beta,
+        rho,
+        q,
+        num_ants,
+        iter_count
       ) do
     Agent.start_link(fn ->
       %{
